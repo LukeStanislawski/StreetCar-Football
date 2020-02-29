@@ -12,6 +12,8 @@
 #include <algorithm>
 #include <iterator>
 #include <iostream>
+#include <math.h>
+
 
 int width  = 600;                                   // initialise global window variables
 int height = 400;                                   // define in your header: int width, height;
@@ -22,11 +24,46 @@ int refreshmil = 250;
 
 
 void draw_triangle(float triangle [3][3]) {
-    glBegin(GL_TRIANGLES);
+    glBegin(GL_LINE_LOOP);
         glVertex3f(triangle[0][0], triangle[0][1], triangle[0][2]);
         glVertex3f(triangle[1][0], triangle[1][1], triangle[1][2]);
         glVertex3f(triangle[2][0], triangle[2][1], triangle[2][2]);
     glEnd();
+}
+
+
+void subdivide_triangle(float triangle [3][3], int divs) {
+    if (divs == 0) {
+        draw_triangle(triangle);
+    } else {
+        float r = sqrt(pow(triangle[0][0], 2) + pow(triangle[0][1], 2) + pow(triangle[0][2], 2));
+        
+        float mid1[3] = { (triangle[0][0] + triangle[1][0])/2, (triangle[0][1] + triangle[1][1])/2, (triangle[0][2] + triangle[1][2])/2};
+        float mid2[3] = { (triangle[0][0] + triangle[2][0])/2, (triangle[0][1] + triangle[2][1])/2, (triangle[0][2] + triangle[2][2])/2};
+        float mid3[3] = { (triangle[1][0] + triangle[2][0])/2, (triangle[1][1] + triangle[2][1])/2, (triangle[1][2] + triangle[2][2])/2};
+        
+        float nr;
+        for (int i=0; i<3; i++) {
+            nr = sqrt(pow(mid1[0], 2) + pow(mid1[1], 2) + pow(mid1[2], 2));
+            mid1[i] = mid1[i] * (r / nr);
+
+            nr = sqrt(pow(mid2[0], 2) + pow(mid2[1], 2) + pow(mid2[2], 2));
+            mid2[i] = mid2[i] * (r / nr);
+
+            nr = sqrt(pow(mid3[0], 2) + pow(mid3[1], 2) + pow(mid3[2], 2));
+            mid3[i] = mid3[i] * (r / nr);
+        }
+        
+        float a [3][3] = {{mid1[0], mid1[1], mid1[2]}, {mid2[0], mid2[1], mid2[2]}, {mid3[0], mid3[1], mid3[2]}};
+        subdivide_triangle(a, divs - 1);
+        float b [3][3] = {{mid1[0], mid1[1], mid1[2]}, {mid2[0], mid2[1], mid2[2]}, {triangle[0][0], triangle[0][1], triangle[0][2]}};
+        subdivide_triangle(b, divs - 1);
+        float c [3][3] = {{mid1[0], mid1[1], mid1[2]}, {mid3[0], mid3[1], mid3[2]}, {triangle[1][0], triangle[1][1], triangle[1][2]}};
+        subdivide_triangle(c, divs - 1);
+        float d [3][3] = {{mid2[0], mid2[1], mid2[2]}, {mid3[0], mid3[1], mid3[2]}, {triangle[2][0], triangle[2][1], triangle[2][2]}};
+        subdivide_triangle(d, divs - 1);
+    }
+    
 }
 
 
@@ -46,13 +83,30 @@ void tetrahedon() {
     
     for (int i=0; i<4; i++) {
         glColor3f(i*0.2, 0.5, 0.5);
-        draw_triangle(faces[i]);
+//        draw_triangle(faces[i]);]
+        subdivide_triangle(faces[i], 1);
     }
 }
 
 
-int** subdivide_triangle(float triangle [3][3]) {
-    return 0;
+void octahedron() {
+    float faces [8][3][3] = {
+        {{0,0,10}, {0,10,0}, {10,0,0}},
+        {{10,0,0}, {0,10,0}, {0,0,-10}},
+        {{0,0,-10}, {0,10,0}, {-10,0,0}},
+        {{-10,0,0}, {0,10,0}, {0,0,10}},
+        {{0,0,10}, {0,-10,0}, {10,0,0}},
+        {{10,0,0}, {0,-10,0}, {0,0,-10}},
+        {{0,0,-10}, {0,-10,0}, {-10,0,0}},
+        {{-10,0,0}, {0,-10,0}, {0,0,10}},
+    };
+    
+    
+    for (int i=0; i<8; i++) {
+        glColor3f(i*0.1, 1-(0.1*i), 0.5);
+//        draw_triangle(faces[i]);
+        subdivide_triangle(faces[i], 5);
+    }
 }
 
 
@@ -109,7 +163,8 @@ void draw()
     
 //    glutWireCube(10.f);                                 // draw outlined cube
     
-    tetrahedon();
+//    tetrahedon();
+    octahedron();
     drawPerspective();
     
     checkGLError();
