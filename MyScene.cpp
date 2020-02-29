@@ -7,15 +7,76 @@
 //
 
 #include "MyScene.h"
+#include <stdlib.h>
 
 int width  = 600;                                   // initialise global window variables
 int height = 400;                                   // define in your header: int width, height;
+int eyeX = 0, eyeY = 15, eyeZ = 60, lookAtX = 0, lookAtY = 0, lookAtZ = -20, upX = 0, upY = 1, upZ = 0;
+int speed = 1;
+int refreshmil = 250;
+
+
+
+void moveCamera(unsigned char key, int x, int y) {
+    switch (key) {
+        case 119: //W move camera forward
+            lookAtZ--;
+            eyeZ--;
+            break;
+        case 115: //S move camera back
+            lookAtZ++;
+            eyeZ++;
+            break;
+        case 97: //A move camera left
+            lookAtX--;
+            eyeX--;
+            break;
+        case 100: //D move camera right
+            lookAtX++;
+            eyeX++;
+            break;
+        case 113: //Q move camera down
+            lookAtY--;
+            eyeY--;
+            break;
+        case 101: //E move camera up
+            lookAtY++;
+            eyeY++;
+            break;
+        case 122: //tilt up
+            lookAtY++;
+            break;
+        case 120: //tilt down
+            lookAtY--;
+            break;
+        case 99:
+            lookAtX--;
+            break; //tilt left
+        case 118:
+            lookAtX++;
+            break; //tilt right
+        case 32: //press space bar to exit program
+            exit(0);
+            break;
+    }
+}
+
+void setCamera(int eyeX, int eyeY, int eyeZ, int lookAtX, int lookAtY, int lookAtZ, int upX, int upY, int upZ){
+        gluLookAt(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
+}
 
 void setup()
 {
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE);  // enable 3D rendering and double buffering
+//    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
     glutInitWindowSize(width, height);              // set window size
+    glutInitWindowPosition(100, 100);
     glutCreateWindow("My Scene");                   // create and show window (named MyScene)
+}
+
+void timer(int value){
+    glutPostRedisplay();
+    glutTimerFunc(refreshmil, timer, 0);
 }
 
 void draw()
@@ -24,6 +85,9 @@ void draw()
     glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear buffers
     glMatrixMode(GL_MODELVIEW);                         // set for model and viewing operations
     glLoadIdentity();                                   // reset drawing
+    glutKeyboardFunc(moveCamera);
+    
+    setCamera(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
 
     glTranslatef(0.f, 0.f, -100.f);                     // move drawing further back in the scene
     glColor3f(0.f, 0.f, 0.f);                           // set draw colour to black
@@ -31,6 +95,7 @@ void draw()
 
     checkGLError();
     glutSwapBuffers();                                  // execute all commands, swap buffers
+    glFlush();
 }
 
 void reshape(int _width, int _height)
@@ -55,6 +120,8 @@ int main(int argc, char **argv)
     glutDisplayFunc(draw);          // Register scene to render contents of draw() function
     checkGLError();                 // Check any OpenGL errors in initialisation
     glutReshapeFunc(reshape);
+    glutTimerFunc(10, timer, 0);
+
     glutMainLoop();                 // Begin rendering sequence
     return 0;
 }
