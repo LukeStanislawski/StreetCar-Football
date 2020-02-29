@@ -20,6 +20,8 @@ void setup();
 void draw();
 int main(int argc, char **argv);
 void checkGLError();                        // Prints any OpenGL errors to console
+void moveCamera(unsigned char key, int x, int y);
+void setCamera(int eyeX, int eyeY, int eyeZ, int lookAtX, int lookAtY, int lookAtZ, int upX, int upY, int upZ);
 
 #endif
 #include <stdio.h>
@@ -27,3 +29,5 @@ void setup();
 void draw();
 int main(int argc, char **argv);
 void checkGLError(); // Prints any OpenGL errors to console
+void moveCamera(unsigned char key, int x, int y);
+void setCamera(int eyeX, int eyeY, int eyeZ, int lookAtX, int lookAtY, int lookAtZ, int upX, int upY, int upZ);

@@ -9,6 +9,10 @@
 #include "MyScene.h"
 #include <stdlib.h>
 
+#include <algorithm>
+#include <iterator>
+#include <iostream>
+
 int width  = 600;                                   // initialise global window variables
 int height = 400;                                   // define in your header: int width, height;
 int eyeX = 0, eyeY = 15, eyeZ = 60, lookAtX = 0, lookAtY = 0, lookAtZ = -20, upX = 0, upY = 1, upZ = 0;
@@ -16,6 +20,102 @@ int speed = 1;
 int refreshmil = 250;
 
 
+
+void draw_triangle(float triangle [3][3]) {
+    glBegin(GL_TRIANGLES);
+        glVertex3f(triangle[0][0], triangle[0][1], triangle[0][2]);
+        glVertex3f(triangle[1][0], triangle[1][1], triangle[1][2]);
+        glVertex3f(triangle[2][0], triangle[2][1], triangle[2][2]);
+    glEnd();
+}
+
+
+void tetrahedon() {
+//    int a [3] = {-1,-1,-1};
+//    int b [3] = {1,1,-1};
+//    int c [3] = {-1,1,1};
+//    int d [3] = {1,-1,1};
+
+    float faces [4][3][3] = {
+        {{-10,-10,-10}, {10,10,-10}, {-10,10,10}},
+        {{-10,-10,-10}, {10,10,-10},{10,-10,10}},
+        {{-10,-10,-10}, {-10,10,10}, {10,-10,10}},
+        {{10,10,-10}, {-10,10,10}, {10,-10,10}},
+    };
+    
+    
+    for (int i=0; i<4; i++) {
+        glColor3f(i*0.2, 0.5, 0.5);
+        draw_triangle(faces[i]);
+    }
+}
+
+
+int** subdivide_triangle(float triangle [3][3]) {
+    return 0;
+}
+
+
+void drawPerspective() {
+    glBegin(GL_LINES);
+        // x-axis
+        glColor3f(1, 0, 0);
+        glVertex3f(0, 0, 0);
+        glVertex3f(1, 0, 0);
+        // y-axis
+        glColor3f(0, 1, 0);
+        glVertex3f(0, 0, 0);
+        glVertex3f(0, 1, 0);
+        // z-axis
+        glColor3f(0, 0, 1);
+        glVertex3f(0, 0, 0);
+        glVertex3f(0, 0, 1);
+    glEnd();
+    
+    float mSize = 50.f;
+    float mStep = 5.f;
+    float mHeight = -2.5f;
+ 
+    glBegin(GL_LINES);
+        glColor3f(0.75f, 0.75f, 0.75f);
+        // draw horizontal lines
+        for(float i = -mSize; i <= mSize; i += mStep)
+        {
+            glVertex3f(-mSize, mHeight, i);
+            glVertex3f(mSize, mHeight, i);
+        }
+        // draw deep lines
+        for(float i = -mSize; i <= mSize; i += mStep)
+        {
+            glVertex3f(i, mHeight, -mSize);
+            glVertex3f(i, mHeight, mSize);
+        }
+        glEnd();
+}
+
+
+void draw()
+{
+    glClearColor(1.f, 1.f, 1.f, 1.f);                   // set background colour
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear buffers
+    glMatrixMode(GL_MODELVIEW);                         // set for model and viewing operations
+    glLoadIdentity();                                   // reset drawing
+    glutKeyboardFunc(moveCamera);
+    
+    setCamera(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
+
+    glTranslatef(0.f, 0.f, -100.f);                     // move drawing further back in the scene
+    glColor3f(0.f, 0.f, 0.f);                           // set draw colour to black
+    
+//    glutWireCube(10.f);                                 // draw outlined cube
+    
+    tetrahedon();
+    drawPerspective();
+    
+    checkGLError();
+    glutSwapBuffers();                                  // execute all commands, swap buffers
+    glFlush();
+}
 
 void moveCamera(unsigned char key, int x, int y) {
     switch (key) {
@@ -61,7 +161,7 @@ void moveCamera(unsigned char key, int x, int y) {
     }
 }
 
-void setCamera(int eyeX, int eyeY, int eyeZ, int lookAtX, int lookAtY, int lookAtZ, int upX, int upY, int upZ){
+void setCamera(int eyeX, int eyeY, int eyeZ, int lookAtX, int lookAtY, int lookAtZ, int upX, int upY, int upZ) {
         gluLookAt(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
 }
 
@@ -77,25 +177,6 @@ void setup()
 void timer(int value){
     glutPostRedisplay();
     glutTimerFunc(refreshmil, timer, 0);
-}
-
-void draw()
-{
-    glClearColor(1.f, 1.f, 1.f, 1.f);                   // set background colour
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear buffers
-    glMatrixMode(GL_MODELVIEW);                         // set for model and viewing operations
-    glLoadIdentity();                                   // reset drawing
-    glutKeyboardFunc(moveCamera);
-    
-    setCamera(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
-
-    glTranslatef(0.f, 0.f, -100.f);                     // move drawing further back in the scene
-    glColor3f(0.f, 0.f, 0.f);                           // set draw colour to black
-    glutWireCube(10.f);                                 // draw outlined cube
-
-    checkGLError();
-    glutSwapBuffers();                                  // execute all commands, swap buffers
-    glFlush();
 }
 
 void reshape(int _width, int _height)
