@@ -24,7 +24,7 @@ int refreshmil = 250;
 
 
 void draw_triangle(float triangle [3][3]) {
-    glBegin(GL_LINE_LOOP);
+    glBegin(GL_TRIANGLES);
         glVertex3f(triangle[0][0], triangle[0][1], triangle[0][2]);
         glVertex3f(triangle[1][0], triangle[1][1], triangle[1][2]);
         glVertex3f(triangle[2][0], triangle[2][1], triangle[2][2]);
@@ -156,6 +156,9 @@ void draw()
     glLoadIdentity();                                   // reset drawing
     glutKeyboardFunc(moveCamera);
     
+//    glEnable(GL_CULL_FACE);                             // Enable face-culling
+//    glFrontFace(GL_CCW);
+    
     setCamera(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
 
     glTranslatef(0.f, 0.f, -100.f);                     // move drawing further back in the scene
@@ -206,8 +209,10 @@ void moveCamera(unsigned char key, int x, int y) {
             break;
         case 99:
             lookAtX--;
+            lookAtX--;
             break; //tilt left
         case 118:
+            lookAtX++;
             lookAtX++;
             break; //tilt right
         case 32: //press space bar to exit program
