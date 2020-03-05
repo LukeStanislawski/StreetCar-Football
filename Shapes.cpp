@@ -8,6 +8,64 @@
 
 #include "Shapes.h"
 #include "SubDivTriangle.h"
+#include <math.h>
+
+
+void circle(int edges) {
+    float r = 10.0;
+    float z = 0.0;
+    
+    glBegin(GL_LINE_LOOP);
+        for (int t = 0; t < 360; t += 360 / edges)
+        {
+            double theta = t * 3.1415926535897932384626433832795 / 180;
+            float x = cos(theta) * r;
+            float y = sin(theta) * r;
+            glVertex3d(x, y, z);
+        }
+    glEnd();
+}
+
+
+void cylinder(int edges, float length) {
+    float r = 10.0;
+    float z = 0.0;
+    
+    glBegin(GL_QUAD_STRIP);
+        for (int t = 0; t <= 360; t += 360 / edges)
+        {
+            double theta = t * 3.1415926535897932384626433832795 / 180;
+            float x = cos(theta) * r;
+            float y = sin(theta) * r;
+            glVertex3d(x, y, z);
+            glVertex3d(x, y, z + length);
+        }
+    glEnd();
+}
+
+
+void half_cylinder(int edges, float length, bool closed) {
+    float r = 10.0;
+    float z = 0.0;
+    
+    glBegin(GL_QUAD_STRIP);
+        for (int t = 0; t <= 180; t += 180 / edges)
+        {
+            double theta = t * 3.1415926535897932384626433832795 / 180;
+            float x = cos(theta) * r;
+            float y = sin(theta) * r;
+            glVertex3d(x, y, z);
+            glVertex3d(x, y, z + length);
+        }
+    
+        if (closed) {
+            float x = cos(0) * r;
+            float y = sin(0) * r;
+            glVertex3d(x, y, z);
+            glVertex3d(x, y, z + length);
+        }
+    glEnd();
+}
 
 
 void tetrahedon() {

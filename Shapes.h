@@ -16,9 +16,15 @@
 
 void tetrahedon();
 void octahedron();
+void circle(int edges);
+void cylinder(int edges, float length);
+void half_cylinder(int edges, float length, bool closed);
 
 #include <stdio.h>
 #endif
 
 void tetrahedon();
 void octahedron();
+void circle(int edges);
+void cylinder(int edges, float length);
+void half_cylinder(int edges, float length, bool closed);

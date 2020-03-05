@@ -80,10 +80,13 @@ void draw()
     glColor3f(0.f, 0.f, 0.f);                           // set draw colour to black
     
 //    glutWireCube(10.f);                                 // draw outlined cube
+    drawPerspective();
     
 //    tetrahedon();
-    octahedron();
-    drawPerspective();
+//    octahedron();
+//    circle(30);
+//    cylinder(20, 50);
+    half_cylinder(20, 50, true);
     
     checkGLError();
     glutSwapBuffers();                                  // execute all commands, swap buffers
