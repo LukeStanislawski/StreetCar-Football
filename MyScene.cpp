@@ -9,8 +9,8 @@
 #include "MyScene.h"
 #include "SubDivTriangle.h"
 #include "Shapes.h"
+#include "Bridge.h"
 #include <stdlib.h>
-
 #include <algorithm>
 #include <iterator>
 #include <iostream>
@@ -86,7 +86,8 @@ void draw()
 //    octahedron();
 //    circle(30);
 //    cylinder(20, 50);
-    half_cylinder(20, 50, true);
+//    half_cylinder(20, 50, true);
+    bridge();
     
     checkGLError();
     glutSwapBuffers();                                  // execute all commands, swap buffers
