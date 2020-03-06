@@ -10,6 +10,8 @@
 #include "SubDivTriangle.h"
 #include "Shapes.h"
 #include "Bridge.h"
+#include "Tree.h"
+
 #include <stdlib.h>
 #include <algorithm>
 #include <iterator>
@@ -87,7 +89,8 @@ void draw()
 //    circle(30);
 //    cylinder(20, 50);
 //    half_cylinder(20, 50, true);
-    bridge();
+//    bridge();
+    tree();
     
     checkGLError();
     glutSwapBuffers();                                  // execute all commands, swap buffers
