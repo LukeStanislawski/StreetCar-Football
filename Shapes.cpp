@@ -27,6 +27,24 @@ void circle(int edges) {
 }
 
 
+void square() {
+    glBegin(GL_POLYGON);
+        glVertex3d( -1.0, -1.0, -1.0);
+        glVertex3d( -1.0,  1.0, -1.0);
+        glVertex3d(  1.0,  1.0, -1.0);
+        glVertex3d(  1.0, -1.0, -1.0);
+    glEnd();
+}
+
+
+void cube() {
+    glPushMatrix();
+    square();
+    glRotatef(90, 0, 1, 1);
+    glPopMatrix();
+}
+
+
 void cylinder(int edges, float length) {
     float r = 10.0;
     float z = 0.0;
@@ -63,6 +81,26 @@ void half_cylinder(int edges, float length, bool closed) {
             float y = sin(0) * r;
             glVertex3d(x, y, z);
             glVertex3d(x, y, z + length);
+        }
+    glEnd();
+}
+
+
+void ring(int edges, float thickness) {
+    float r = 10.0;
+    float z = 0.0;
+    
+    glBegin(GL_QUAD_STRIP);
+        for (int t = 0; t <= 360; t += 360 / edges)
+        {
+            double theta = t * 3.1415926535897932384626433832795 / 180;
+            float x1 = cos(theta) * r;
+            float y1 = sin(theta) * r;
+            float x2 = cos(theta) * (r - (r * thickness));
+            float y2 = sin(theta) * (r - (r * thickness));
+            glVertex3d(x1, y1, z);
+            glVertex3d(x2, y2, z);
+            
         }
     glEnd();
 }
@@ -109,4 +147,29 @@ void octahedron() {
 //        draw_triangle(faces[i]);
         subdivide_triangle(faces[i], 5);
     }
+}
+
+
+void vase(int slices, int rings, float height, float flex, float radius, float min_radius, float offset) {
+    glPushMatrix();
+    glRotatef(90,1,0,0);
+    
+    float ringsize = height / rings;
+    for (int ri=offset - (ringsize * rings / 2.0); ri <= offset + (ringsize * rings / 2.0); ri += ringsize) {
+        float r1 = min_radius + flex * ri * ri;
+        float r2 = min_radius + flex * (ri + ringsize) * (ri + ringsize);
+        
+        glBegin(GL_QUAD_STRIP);
+        for (int t = 0; t <= 360; t += 360 / slices) {
+            double theta = t * 3.1415926535897932384626433832795 / 180;
+            float x1 = cos(theta) * r1;
+            float y1 = sin(theta) * r1;
+            float x2 = cos(theta) * r2;
+            float y2 = sin(theta) * r2;
+            glVertex3d(x1, y1, ri);
+            glVertex3d(x2, y2, ri + ringsize);
+        }
+        glEnd();
+    }
+    glPopMatrix();
 }

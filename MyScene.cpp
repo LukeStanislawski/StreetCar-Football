@@ -11,6 +11,7 @@
 #include "Shapes.h"
 #include "Bridge.h"
 #include "Tree.h"
+#include "Fountain.h"
 
 #include <stdlib.h>
 #include <algorithm>
@@ -90,7 +91,11 @@ void draw()
 //    cylinder(20, 50);
 //    half_cylinder(20, 50, true);
 //    bridge();
-    tree();
+//    tree();
+//    cube();
+//    fountain();
+//    ring(20, 0.5);
+    vase(20, 8, 50, 0.01, 30, 10, 0);
     
     checkGLError();
     glutSwapBuffers();                                  // execute all commands, swap buffers

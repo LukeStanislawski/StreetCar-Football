@@ -19,12 +19,11 @@ void octahedron();
 void circle(int edges);
 void cylinder(int edges, float length);
 void half_cylinder(int edges, float length, bool closed);
+void square();
+void cube();
+void ring(int edges, float thickness);
+void vase(int slices, int rings, float height, float flex, float radius, float min_radius, float offset);
+
 
 #include <stdio.h>
 #endif
-
-void tetrahedon();
-void octahedron();
-void circle(int edges);
-void cylinder(int edges, float length);
-void half_cylinder(int edges, float length, bool closed);
