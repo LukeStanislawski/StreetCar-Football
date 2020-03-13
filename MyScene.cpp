@@ -12,6 +12,7 @@
 #include "Bridge.h"
 #include "Tree.h"
 #include "Fountain.h"
+#include "Car.h"
 
 #include <stdlib.h>
 #include <algorithm>
@@ -22,7 +23,7 @@
 
 int width  = 600;                                   // initialise global window variables
 int height = 400;                                   // define in your header: int width, height;
-int eyeX = 0, eyeY = 15, eyeZ = 60, lookAtX = 0, lookAtY = 0, lookAtZ = -20, upX = 0, upY = 1, upZ = 0;
+int eyeX = 0, eyeY = 15, eyeZ = -0, lookAtX = 0, lookAtY = 12, lookAtZ = -20, upX = 0, upY = 1, upZ = 0;
 int speed = 1;
 int refreshmil = 250;
 
@@ -56,7 +57,7 @@ void drawPerspective() {
             glVertex3f(-mSize, mHeight, i);
             glVertex3f(mSize, mHeight, i);
         }
-        // draw deep lines
+        // draw depth lines
         for(float i = -mSize; i <= mSize; i += mStep)
         {
             glVertex3f(i, mHeight, -mSize);
@@ -69,13 +70,15 @@ void drawPerspective() {
 void draw()
 {
     glClearColor(1.f, 1.f, 1.f, 1.f);                   // set background colour
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear buffers
+    glClear(GL_COLOR_BUFFER_BIT); // clear buffers
     glMatrixMode(GL_MODELVIEW);                         // set for model and viewing operations
     glLoadIdentity();                                   // reset drawing
     glutKeyboardFunc(moveCamera);
     
 //    glEnable(GL_CULL_FACE);                             // Enable face-culling
 //    glFrontFace(GL_CCW);
+    
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
     
     setCamera(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
 
@@ -95,7 +98,8 @@ void draw()
 //    cube();
 //    fountain();
 //    ring(20, 0.5);
-    vase(20, 8, 50, 0.01, 30, 10, 0);
+//    vase(20, 10, 50, 0.01, 30, 10, 0);
+    car();
     
     checkGLError();
     glutSwapBuffers();                                  // execute all commands, swap buffers
@@ -152,6 +156,22 @@ void setCamera(int eyeX, int eyeY, int eyeZ, int lookAtX, int lookAtY, int lookA
         gluLookAt(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
 }
 
+void setGlobalLight() {
+    // Set lighting effect colours and positional parameter
+    float ambient[]  = { .2f, .2f, .2f, 1.f };      // ambient light (20% white)
+    float diffuse[]  = { .5f, .5f, .5f, 1.f };      // diffuse light (50% white)
+    float specular[] = { 0.5f, 0.5f, 0.5f, 0.5f };      // specular light (100% white)
+    float position[] = { 1.f, .5f, 1.f, 0.f };      // directional light (w = 0)
+    // Attach properties to single light source (GL_LIGHT0)
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);      // set ambient parameter of light source
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);      // set diffuse parameter of light source
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);    // set specular parameter of light source
+    glLightfv(GL_LIGHT0, GL_POSITION, position);    // set direction vector of light source
+    // Enable this lighting effects
+    glEnable(GL_LIGHTING);  // enable scene lighting (required to enable a light source)
+    glEnable(GL_LIGHT0);    // enable light source with attached parameters (GL_LIGHT0)
+}
+
 void setup()
 {
     glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE);  // enable 3D rendering and double buffering
@@ -159,6 +179,9 @@ void setup()
     glutInitWindowSize(width, height);              // set window size
     glutInitWindowPosition(100, 100);
     glutCreateWindow("My Scene");                   // create and show window (named MyScene)
+//    setGlobalLight();
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
 }
 
 void timer(int value){

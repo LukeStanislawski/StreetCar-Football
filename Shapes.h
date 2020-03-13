@@ -23,6 +23,8 @@ void square();
 void cube();
 void ring(int edges, float thickness);
 void vase(int slices, int rings, float height, float flex, float radius, float min_radius, float offset);
+void wire_square();
+void wire_cube();
 
 
 #include <stdio.h>

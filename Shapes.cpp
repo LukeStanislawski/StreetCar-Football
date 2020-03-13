@@ -15,7 +15,7 @@ void circle(int edges) {
     float r = 10.0;
     float z = 0.0;
     
-    glBegin(GL_LINE_LOOP);
+    glBegin(GL_POLYGON);
         for (int t = 0; t < 360; t += 360 / edges)
         {
             double theta = t * 3.1415926535897932384626433832795 / 180;
@@ -29,19 +29,58 @@ void circle(int edges) {
 
 void square() {
     glBegin(GL_POLYGON);
-        glVertex3d( -1.0, -1.0, -1.0);
-        glVertex3d( -1.0,  1.0, -1.0);
-        glVertex3d(  1.0,  1.0, -1.0);
-        glVertex3d(  1.0, -1.0, -1.0);
+
+    glVertex3f( -0.5, -0.5, -0.5);       // P1
+    glVertex3f( -0.5,  0.5, -0.5);       // P2
+    glVertex3f(  0.5,  0.5, -0.5);       // P3
+    glVertex3f(  0.5, -0.5, -0.5);       // P4
+
+    glEnd();
+}
+
+
+void wire_square() {
+    glBegin(GL_LINE_LOOP);
+
+    glVertex3f( -0.5, -0.5, -0.5);       // P1
+    glVertex3f( -0.5,  0.5, -0.5);       // P2
+    glVertex3f(  0.5,  0.5, -0.5);       // P3
+    glVertex3f(  0.5, -0.5, -0.5);       // P4
+
     glEnd();
 }
 
 
 void cube() {
     glPushMatrix();
+    for (int i=0; i < 4; i++) {
+        square();
+        glRotatef(90, 0, 1, 0);
+    }
+    
+    glRotatef(90, 1, 0, 0);
     square();
-    glRotatef(90, 0, 1, 1);
+    glRotatef(180, 1, 0, 0);
+    square();
+
     glPopMatrix();
+}
+
+
+void wire_cube() {
+//    glPushMatrix();
+//    for (int i=0; i < 4; i++) {
+//        square();
+//        glRotatef(90, 0, 1, 0);
+//    }
+//
+//    glRotatef(90, 1, 0, 0);
+//    square();
+//    glRotatef(180, 1, 0, 0);
+//    square();
+//
+//    glPopMatrix();
+    glutWireCube(1);
 }
 
 
