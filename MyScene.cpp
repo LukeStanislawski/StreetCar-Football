@@ -21,12 +21,49 @@
 #include <math.h>
 
 
+
 int width  = 600;                                   // initialise global window variables
 int height = 400;                                   // define in your header: int width, height;
 int eyeX = 0, eyeY = 15, eyeZ = -0, lookAtX = 0, lookAtY = 12, lookAtZ = -20, upX = 0, upY = 1, upZ = 0;
 int speed = 1;
 int refreshmil = 250;
 
+
+
+void setup()
+{
+    width  = 600;                                       // initialise global window variables
+    height = 400;
+    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE);      // enable 3D rendering and double buffering
+    glutInitWindowSize(width, height);                  // set window size
+    glutCreateWindow("My Scene");                       // create and show window (named MyScene)
+    
+    Tree* tree;
+    tree = new Tree();                                  // create new Tree object pointer
+    objects["tree"] = tree;                             // add tree to map of strings to DisplayableObjects
+//    reshape(width, height);                             // call reshape function to set perspective
+    setGlobalLight();
+}
+
+//void draw()
+//{
+//    glClearColor(1.f, 1.f, 1.f, 1.f);                   // set white background colour
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); // clear buffers
+//    glMatrixMode(GL_MODELVIEW);                         // set for model and viewing operations
+//    glLoadIdentity();                                   // reset drawing
+//
+//    glTranslatef(0.f, -4.f, -10.f);                     // translate back and to the bottom of the screen
+//    glColor3f(0.f, 0.f, 0.f);                           // set draw colour to black
+//
+////    // for each pair in the objects map (in this case, one Tree called "tree")
+////        // pair is type <string, DisplayableObject*> so must call on 'second' element
+////    for (std::map <std::string, DisplayableObject*>::iterator itr = objects.begin(); itr != objects.end(); ++itr)
+////    {
+////        itr->second->display();
+////    }
+//    checkGLError();
+//    glutSwapBuffers();                                  // execute all commands, swap buffers
+//}
 
 
 void drawPerspective() {
@@ -74,20 +111,20 @@ void draw()
     glMatrixMode(GL_MODELVIEW);                         // set for model and viewing operations
     glLoadIdentity();                                   // reset drawing
     glutKeyboardFunc(moveCamera);
-    
+
 //    glEnable(GL_CULL_FACE);                             // Enable face-culling
 //    glFrontFace(GL_CCW);
-    
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT); 
-    
+
+    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+
     setCamera(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
 
     glTranslatef(0.f, 0.f, -100.f);                     // move drawing further back in the scene
     glColor3f(0.f, 0.f, 0.f);                           // set draw colour to black
-    
+
 //    glutWireCube(10.f);                                 // draw outlined cube
     drawPerspective();
-    
+
 //    tetrahedon();
 //    octahedron();
 //    circle(30);
@@ -101,6 +138,10 @@ void draw()
 //    vase(20, 10, 50, 0.01, 30, 10, 0);
     car();
     
+//    Tree t;
+//    t.display();
+
+
     checkGLError();
     glutSwapBuffers();                                  // execute all commands, swap buffers
     glFlush();
@@ -158,9 +199,9 @@ void setCamera(int eyeX, int eyeY, int eyeZ, int lookAtX, int lookAtY, int lookA
 
 void setGlobalLight() {
     // Set lighting effect colours and positional parameter
-    float ambient[]  = { .2f, .2f, .2f, 1.f };      // ambient light (20% white)
+    float ambient[]  = { .6f, .6f, .6f, 1.f };      // ambient light (20% white)
     float diffuse[]  = { .5f, .5f, .5f, 1.f };      // diffuse light (50% white)
-    float specular[] = { 0.5f, 0.5f, 0.5f, 0.5f };      // specular light (100% white)
+    float specular[] = { 1.f, 1.f, 1.f, 1.f };      // specular light (100% white)
     float position[] = { 1.f, .5f, 1.f, 0.f };      // directional light (w = 0)
     // Attach properties to single light source (GL_LIGHT0)
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambient);      // set ambient parameter of light source
@@ -172,17 +213,17 @@ void setGlobalLight() {
     glEnable(GL_LIGHT0);    // enable light source with attached parameters (GL_LIGHT0)
 }
 
-void setup()
-{
-    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE);  // enable 3D rendering and double buffering
-//    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-    glutInitWindowSize(width, height);              // set window size
-    glutInitWindowPosition(100, 100);
-    glutCreateWindow("My Scene");                   // create and show window (named MyScene)
-//    setGlobalLight();
-    glEnable(GL_DEPTH_TEST);
-    glDepthFunc(GL_LESS);
-}
+//void setup()
+//{
+//    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE);  // enable 3D rendering and double buffering
+////    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+//    glutInitWindowSize(width, height);              // set window size
+//    glutInitWindowPosition(100, 100);
+//    glutCreateWindow("My Scene");                   // create and show window (named MyScene)
+////    setGlobalLight();
+//    glEnable(GL_DEPTH_TEST);
+//    glDepthFunc(GL_LESS);
+//}
 
 void timer(int value){
     glutPostRedisplay();

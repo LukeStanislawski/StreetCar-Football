@@ -14,7 +14,13 @@
 #include <gl/glut.h> // include freeglut libraries
 #endif
 
+//#include "Tree.h"
+#include "DisplayableObject.h"
 #include <stdio.h>
+#include <string>
+#include <map>
+
+std::map<std::string,DisplayableObject*> objects;
 
 void setup();
 void draw();
@@ -23,6 +29,7 @@ void checkGLError();                        // Prints any OpenGL errors to conso
 void moveCamera(unsigned char key, int x, int y);
 void setCamera(int eyeX, int eyeY, int eyeZ, int lookAtX, int lookAtY, int lookAtZ, int upX, int upY, int upZ);
 void setGlobalLight();
+
 
 
 #endif

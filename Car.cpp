@@ -12,6 +12,7 @@
 
 void car() {
     glPushMatrix();
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
     
     glTranslatef(0,15,0);
 //    glRotatef(45,0,1,0);
@@ -24,6 +25,7 @@ void car() {
     car_grill();
     car_headlights();
 
+    glPopAttrib();
     glPopMatrix();
 }
 
@@ -248,23 +250,47 @@ void car_body() {
 
 
 void car_colours(int c) {
+    float mat_colour[] = { 0.f, 0.31f, 0.0f, 1.f };
+    
     if (c == 0) {
         // 0 - Green
-        glColor3f(0,0.31,0);
+//        glColor3f(0,0.31,0);
+        mat_colour[0] = 0;
+        mat_colour[1] = 0.31;
+        mat_colour[2]=  0.0;
     } else if (c == 1) {
         // 1 - Light grey
-        glColor3f(0.83,0.83,0.83);
+//        glColor3f(0.83,0.83,0.83);
+        mat_colour[0] = 0.83;
+        mat_colour[1] = 0.83;
+        mat_colour[2]=  0.83;
     } else if (c == 2) {
         // 2 - Light green
-        glColor3f(0.5,0.83,0.4);
+//        glColor3f(0.5,0.83,0.4);
+        mat_colour[0] = 0.5;
+        mat_colour[1] = 0.83;
+        mat_colour[2]=  0.4;
     } else if (c == 3) {
         // 3 - Black
-        glColor3f(0,0,0);
+//        glColor3f(0,0,0);
+        mat_colour[0] = 0;
+        mat_colour[1] = 0;
+        mat_colour[2]=  0;
    } else if (c == 4) {
         // 4 - Dark grey
-        glColor3f(0.65,0.65,0.65);
+//        glColor3f(0.65,0.65,0.65);
+       mat_colour[0] = 0.65;
+       mat_colour[1] = 0.65;
+       mat_colour[2]=  0.65;
    } else if (c == 5) {
           // 5 - Yellow
-          glColor3f(0.8,0.8,0);
-     }
+//          glColor3f(0.8,0.8,0);
+       mat_colour[0] = 0.8;
+       mat_colour[1] = 0.8;
+       mat_colour[2]=  0;
+   }
+    glColor3f(mat_colour[0],mat_colour[1],mat_colour[2]);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_colour); // set colour for ambient reflectance
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_colour);  // set colour for diffuse reflectance
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_colour);   // set colour for specular reflectance
 }

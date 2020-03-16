@@ -14,8 +14,15 @@
 #include <gl/glut.h> // include freeglut libraries
 #endif
 
-void tree();
-void tree_rec(int depth);
+class Tree : public DisplayableObject       // a Tree is a DisplayableObject
+{
+public:
+    Tree();                                 // constructor
+    ~Tree() { };                            // destructor
+    void display();                         // overloaded virtual display function
+private:
+    void branch();                          // draw branch function
+};
 
 #include <stdio.h>
 #endif
