@@ -30,20 +30,20 @@ int refreshmil = 250;
 
 
 
-void setup()
-{
-    width  = 600;                                       // initialise global window variables
-    height = 400;
-    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE);      // enable 3D rendering and double buffering
-    glutInitWindowSize(width, height);                  // set window size
-    glutCreateWindow("My Scene");                       // create and show window (named MyScene)
-    
-    Tree* tree;
-    tree = new Tree();                                  // create new Tree object pointer
-    objects["tree"] = tree;                             // add tree to map of strings to DisplayableObjects
-//    reshape(width, height);                             // call reshape function to set perspective
-    setGlobalLight();
-}
+//void setup()
+//{
+//    width  = 600;                                       // initialise global window variables
+//    height = 400;
+//    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE);      // enable 3D rendering and double buffering
+//    glutInitWindowSize(width, height);                  // set window size
+//    glutCreateWindow("My Scene");                       // create and show window (named MyScene)
+//
+//    Tree* tree;
+//    tree = new Tree();                                  // create new Tree object pointer
+//    objects["tree"] = tree;                             // add tree to map of strings to DisplayableObjects
+////    reshape(width, height);                             // call reshape function to set perspective
+//    setGlobalLight();
+//}
 
 //void draw()
 //{
@@ -213,17 +213,17 @@ void setGlobalLight() {
     glEnable(GL_LIGHT0);    // enable light source with attached parameters (GL_LIGHT0)
 }
 
-//void setup()
-//{
-//    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE);  // enable 3D rendering and double buffering
-////    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
-//    glutInitWindowSize(width, height);              // set window size
-//    glutInitWindowPosition(100, 100);
-//    glutCreateWindow("My Scene");                   // create and show window (named MyScene)
-////    setGlobalLight();
-//    glEnable(GL_DEPTH_TEST);
-//    glDepthFunc(GL_LESS);
-//}
+void setup()
+{
+    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE);  // enable 3D rendering and double buffering
+//    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
+    glutInitWindowSize(width, height);              // set window size
+    glutInitWindowPosition(100, 100);
+    glutCreateWindow("My Scene");                   // create and show window (named MyScene)
+    setGlobalLight();
+    glEnable(GL_DEPTH_TEST);
+    glDepthFunc(GL_LESS);
+}
 
 void timer(int value){
     glutPostRedisplay();
