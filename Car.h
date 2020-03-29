@@ -16,20 +16,42 @@
 
 #include <stdio.h>
 
-void car();
-void car_windscreen();
-void car_body();
-void car_wheel();
-void car_wheels();
-void car_roofbar();
-void car_roofbars();
-void car_bumper();
-void car_grill();
-void car_grill_bar();
-void car_headlight();
-void car_headlights();
+//void car();
+//void car_windscreen();
+//void car_body();
+//void car_wheel();
+//void car_wheels();
+//void car_roofbar();
+//void car_roofbars();
+//void car_bumper();
+//void car_grill();
+//void car_grill_bar();
+//void car_headlight();
+//void car_headlights();
+//
+//void car_colours(int c);
 
-void car_colours(int c);
+
+class Car {
+public:
+    Car(float sf);
+    ~Car() {};
+
+private:
+    void car_windscreen();
+    void car_body();
+    void car_wheel();
+    void car_wheels();
+    void car_roofbar();
+    void car_roofbars();
+    void car_bumper();
+    void car_grill();
+    void car_grill_bar();
+    void car_headlight();
+    void car_headlights();
+    
+    void car_colours(int c);
+};
 
 //void car_body(float length, float height, float depth);
 

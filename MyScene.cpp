@@ -136,7 +136,7 @@ void draw()
 //    fountain();
 //    ring(20, 0.5);
 //    vase(20, 10, 50, 0.01, 30, 10, 0);
-    car();
+    Car car_obj(0.5);
     
 //    Tree t;
 //    t.display();

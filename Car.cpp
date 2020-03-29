@@ -10,7 +10,9 @@
 #include "Shapes.h"
 
 
-void car() {
+Car::Car(float sf) {
+    glPushMatrix();
+    glScalef(sf, sf, sf);
     glPushMatrix();
     glPushAttrib(GL_ALL_ATTRIB_BITS);
     
@@ -27,9 +29,10 @@ void car() {
 
     glPopAttrib();
     glPopMatrix();
+    glPopMatrix();
 }
 
-void car_headlights() {
+void Car::car_headlights() {
     glPushMatrix();
     
     glRotatef(90,0,1,0);
@@ -46,7 +49,7 @@ void car_headlights() {
     glPopMatrix();
 }
 
-void car_headlight() {
+void Car::car_headlight() {
     glPushMatrix();
     car_colours(3);
     ring(20, 0.1);
@@ -56,7 +59,7 @@ void car_headlight() {
     glPopMatrix();
 }
 
-void car_grill() {
+void Car::car_grill() {
     glPushMatrix();
     glTranslatef(-25,6,0);
     glRotatef(90, 0,1,0);
@@ -81,14 +84,14 @@ void car_grill() {
     glPopMatrix();
 }
 
-void car_grill_bar() {
+void Car::car_grill_bar() {
     glPushMatrix();
     glScalef(10,1,1);
     cube();
     glPopMatrix();
 }
 
-void car_bumper() {
+void Car::car_bumper() {
     car_colours(1);
     glPushMatrix();
     glRotatef(90,0,1,0);
@@ -99,7 +102,7 @@ void car_bumper() {
     glPopMatrix();
 }
 
-void car_roofbars() {
+void Car::car_roofbars() {
     car_colours(3);
     glPushMatrix();
     glTranslatef(-10,25,12);
@@ -112,7 +115,7 @@ void car_roofbars() {
     glPopMatrix();
 }
 
-void car_roofbar() {
+void Car::car_roofbar() {
     //Main bar
     glScalef(0.1,0.1,0.1);
     glRotatef(90,0,1,0);
@@ -133,7 +136,7 @@ void car_roofbar() {
     glPopMatrix();
 }
 
-void car_wheels() {
+void Car::car_wheels() {
     glPushMatrix();
     
     // Rear Left
@@ -159,7 +162,7 @@ void car_wheels() {
     glPopMatrix();
 }
 
-void car_wheel() {
+void Car::car_wheel() {
     glPushMatrix();
     glScalef(0.8, 0.8, 0.8);
     car_colours(3);
@@ -189,7 +192,7 @@ void car_wheel() {
     glPopMatrix();
 }
 
-void car_windscreen() {
+void Car::car_windscreen() {
     car_colours(1);
     glPushMatrix();
     glScalef(35,15,30);
@@ -225,7 +228,7 @@ void car_windscreen() {
 }
 
 
-void car_body() {
+void Car::car_body() {
     car_colours(0);
     glPushMatrix();
     glScalef(50,15,30);
@@ -249,7 +252,7 @@ void car_body() {
 
 
 
-void car_colours(int c) {
+void Car::car_colours(int c) {
     float mat_colour[] = { 0.f, 0.31f, 0.0f, 1.f };
     
     if (c == 0) {
