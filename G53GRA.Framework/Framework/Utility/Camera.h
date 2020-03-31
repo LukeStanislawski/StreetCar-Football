@@ -80,6 +80,8 @@ public:
 	* @see #Reset()
 	*/
 	virtual void SetupCamera();
+    
+    void update_tracker(float* car_pos, float* car_ornt);
 
 private:
 	/**
@@ -114,4 +116,11 @@ private:
 	int currentButton;
 	/** Previous mouse coordinates */
 	GLint mouseX, mouseY;
+    
+    
+    int camera_view = 0;
+    float track_pos[3];
+    float track_dir[3];
+    
+    void toggle_view();
 };

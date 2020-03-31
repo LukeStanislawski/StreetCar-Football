@@ -27,9 +27,9 @@ void MyScene::Initialise()
 {
     glClearColor(1.f, 1.f, 1.f, 1.f);
     
-    Car *car_obj = new Car();
-    car_obj->position(0, -45, 0);
-    AddObjectToScene(car_obj);
+    car = new Car();
+    car->position(0, -45, 0);
+    AddObjectToScene(car);
     
     Terrain *t = new Terrain();
     AddObjectToScene(t);
@@ -45,6 +45,11 @@ void MyScene::Projection()
 {
 	GLdouble aspect = static_cast<GLdouble>(windowWidth) / static_cast<GLdouble>(windowHeight);
 	gluPerspective(60.0, aspect, 1.0, 1000.0);
+    
+    Camera *c = GetCamera();
+    float *car_pos = car->position();
+    float *car_ornt = car->orientation();
+    c->update_tracker(car_pos, car_ornt);
 }
 
 

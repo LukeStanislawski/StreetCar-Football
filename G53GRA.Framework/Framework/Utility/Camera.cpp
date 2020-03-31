@@ -1,6 +1,8 @@
 #include "Camera.h"
 #include "VectorMath.h"
 #include "Scene.h"
+#include <math.h>
+
 
 Camera::Camera() : wKey(0), sKey(0), aKey(0), dKey(0), currentButton(0), mouseX(0), mouseY(0)
 {
@@ -51,21 +53,33 @@ void Camera::SetupCamera()
 
 void Camera::Update(const double& deltaTime)
 {
-	float speed = 1.0f;
+    if (camera_view == 0) {
+        float speed = 1.0f;
 
-	if (aKey)
-		sub(eyePosition, right, speed);
+        if (aKey)
+            sub(eyePosition, right, speed);
 
-	if (dKey)
-		add(eyePosition, right, speed);
+        if (dKey)
+            add(eyePosition, right, speed);
 
-	if (wKey)
-		add(eyePosition, forward, speed);
+        if (wKey)
+            add(eyePosition, forward, speed);
 
-	if (sKey)
-		sub(eyePosition, forward, speed);
+        if (sKey)
+            sub(eyePosition, forward, speed);
 
-	SetupCamera();
+        SetupCamera();
+    } else if (camera_view == 1) {
+        double theta = track_dir[1] * 3.1415926535897932384626433832795 / 180;
+        eyePosition[0] = track_pos[0] + 200 * sin(theta);
+        eyePosition[1] = track_pos[1] + 100;
+        eyePosition[2] = track_pos[2] + 200 * cos(theta);
+        
+        theta = (track_dir[1] + 180) * 3.1415926535897932384626433832795 / 180;
+        vd[0] = sin(theta);
+        vd[1] = 0;
+        vd[2] = cos(theta);
+    }
 }
 
 void Camera::GetEyePosition(float &x, float &y, float &z) const
@@ -128,6 +142,12 @@ void Camera::HandleKey(unsigned char key, int state, int x, int y)
 		default:
 			break;
 	}
+    
+    if (state == 1) {
+        if (key == 'v') {
+            toggle_view();
+        }
+    }
 }
 
 void Camera::HandleMouse(int button, int state, int x, int y)
@@ -188,4 +208,26 @@ void Camera::HandleMouseDrag(int x, int y)
 
 	mouseX = x;
 	mouseY = y;
+}
+
+void Camera::toggle_view() {
+    camera_view++;
+    
+    if (camera_view > 1) {
+        camera_view = 0;
+    }
+    
+    if (camera_view == 0) {
+        Reset();
+    }
+}
+
+void Camera::update_tracker(float* pos, float* dir) {
+    track_pos[0] = pos[0];
+    track_pos[1] = pos[1];
+    track_pos[2] = pos[2];
+    
+    track_dir[0] = dir[0];
+    track_dir[1] = dir[1];
+    track_dir[2] = dir[2];
 }

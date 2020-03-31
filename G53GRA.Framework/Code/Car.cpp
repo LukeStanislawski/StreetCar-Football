@@ -38,7 +38,7 @@ void Car::Display() {
     glPushAttrib(GL_ALL_ATTRIB_BITS);
     
     glTranslatef(0,15,0);
-//    glRotatef(45,0,1,0);
+    glRotatef(-90,0,1,0);
 
     car_body();
     car_windscreen();
@@ -351,7 +351,7 @@ void Car::Update(const double& deltaTime)
         rotation[1] -= 50.0f * static_cast<float>(deltaTime);
     }
     
-    double theta = (rotation[1] - 90) * 3.1415926535897932384626433832795 / 180;
+    double theta = (rotation[1] + 180) * 3.1415926535897932384626433832795 / 180;
     float x = travel_speed * static_cast<float>(deltaTime) * sin(theta);
     float y = travel_speed * static_cast<float>(deltaTime) * cos(theta);
     if (moving_forward) {
@@ -363,8 +363,6 @@ void Car::Update(const double& deltaTime)
         pos[2] -= y;
         wheele_rot -= 10.0f * travel_speed * static_cast<float>(deltaTime);
     }
-    
-    std::cout << rotation[0] << " " << rotation[1] << " " << rotation[2] << "\n";
 }
 
 void Car::HandleSpecialKey(int key, int state, int x, int y) {

@@ -1,6 +1,7 @@
 #pragma once
 
 #include "../Framework/Engine/Scene.h"
+#include "Car.h"
 
 class MyScene :
 	public Scene
@@ -10,6 +11,7 @@ public:
 	~MyScene() {};
 
 private:
+    Car *car;
 	void Initialise();
 	void Projection();
 
