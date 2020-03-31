@@ -7,13 +7,13 @@
 #include <math.h>
 #include "Car.h"
 #include "DisplayableObject.h"
-
 #include "Triangle.h"
+#include "Terrain.h"
+
 
 int width  = 600;                                   // initialise global window variables
 int height = 400;
 int refreshmil = 250;
-
 int iter = 0;
 
 
@@ -29,6 +29,9 @@ void MyScene::Initialise()
     
     Car *car_obj = new Car();
     AddObjectToScene(car_obj);
+    
+    Terrain *t = new Terrain();
+    AddObjectToScene(t);
     
     
 //    checkGLError();                 // Check any OpenGL errors in initialisation
