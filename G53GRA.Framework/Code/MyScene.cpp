@@ -28,6 +28,7 @@ void MyScene::Initialise()
     glClearColor(1.f, 1.f, 1.f, 1.f);
     
     Car *car_obj = new Car();
+    car_obj->position(0, -45, 0);
     AddObjectToScene(car_obj);
     
     Terrain *t = new Terrain();

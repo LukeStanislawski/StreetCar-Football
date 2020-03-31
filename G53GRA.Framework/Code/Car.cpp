@@ -14,13 +14,12 @@
 
 Car::Car() {
     Display();
-//    std::cout << "car" << std::endl;
 }
 
 void Car::Display() {
     glPushMatrix();
 
-    glTranslatef(0.0f, 0.0f, 0.0f);
+    glTranslatef(pos[0], pos[1], pos[2]);
 
     // rotate the triangle by the given degrees
     glRotatef(rotation[0], 0.0f, 0.0f, 1.0f);
@@ -193,6 +192,9 @@ void Car::car_wheels() {
 void Car::car_wheel() {
     glPushMatrix();
     glScalef(0.8, 0.8, 0.8);
+    
+    glRotatef(wheele_rot, 0, 0, 1);
+    
     car_colours(3);
     cylinder(20, 5);
     glTranslatef(0,0,5);
@@ -206,13 +208,15 @@ void Car::car_wheel() {
     glPushMatrix();
     car_colours(4);
     int spokes = 4;
+    float depth_inc = 0.02;
     for (int i=0; i < spokes; i++) {
+        float depth = 0.1 + (i * depth_inc);
         glRotatef(180.0 / spokes, 0, 0, 1);
         glBegin(GL_POLYGON);
-        glVertex3d(1, 10, 0.1);
-        glVertex3d(-1, 10, 0.1);
-        glVertex3d(-1, -10, 0.1);
-        glVertex3d(1, -10, 0.1);
+        glVertex3d(1, 10, depth);
+        glVertex3d(-1, 10, depth);
+        glVertex3d(-1, -10, depth);
+        glVertex3d(1, -10, depth);
         glEnd();
     }
     glPopMatrix();
@@ -334,4 +338,11 @@ void Car::HandleKey(unsigned char key, int state, int x, int y) {
 }
 
 
-void Car::Update(const double& deltaTime) {}
+/// update the Z rotation variable with change in time
+void Car::Update(const double& deltaTime)
+{
+    wheele_rot += 50.0f * static_cast<float>(deltaTime);
+    if (wheele_rot > 360.0) {
+        wheele_rot -= 360;
+    }
+}

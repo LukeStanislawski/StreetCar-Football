@@ -31,6 +31,8 @@ public:
     void Display();
 
 private:
+    float wheele_rot = 0.0;
+    
     void car_windscreen();
     void car_body();
     void car_wheel();
