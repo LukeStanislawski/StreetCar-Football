@@ -32,6 +32,11 @@ public:
 
 private:
     float wheele_rot = 0.0;
+    bool turning_right = false;
+    bool turning_left = false;
+    bool moving_forward = false;
+    bool moving_backwards = false;
+    float travel_speed = 50.0;
     
     void car_windscreen();
     void car_body();
@@ -48,6 +53,7 @@ private:
     void car_colours(int c);
     
     void HandleKey(unsigned char key, int state, int x, int y);
+    void HandleSpecialKey(int key, int state, int x, int y);
     void Update(const double& deltaTime);
 };
 

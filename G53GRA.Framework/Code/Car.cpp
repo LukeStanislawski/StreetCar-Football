@@ -10,6 +10,7 @@
 #include "Shapes.h"
 #include <stdlib.h>
 #include <iostream>
+#include <math.h>
 
 
 Car::Car() {
@@ -174,6 +175,7 @@ void Car::car_wheels() {
     glPushMatrix();
     glRotatef(180,0,1,0);
     glTranslatef(0,0,26);
+    glScalef(1, -1, 1);
     car_wheel();
     glPopMatrix();
     
@@ -184,6 +186,7 @@ void Car::car_wheels() {
     // Front Right
     glRotatef(180,0,1,0);
     glTranslatef(0,0,26);
+    glScalef(1, -1, 1);
     car_wheel();
 
     glPopMatrix();
@@ -332,17 +335,73 @@ void Car::car_colours(int c) {
 
 
 void Car::HandleKey(unsigned char key, int state, int x, int y) {
-    if (state == 1 && key == 'j') {
-        orientation(0, 153, 0);
-    }
+//    if (state == 1 && key == 'j') {
+//        orientation(0, 153, 0);
+//    }
 }
 
 
 /// update the Z rotation variable with change in time
 void Car::Update(const double& deltaTime)
 {
-    wheele_rot += 50.0f * static_cast<float>(deltaTime);
-    if (wheele_rot > 360.0) {
-        wheele_rot -= 360;
+    if (turning_left) {
+        rotation[1] += 50.0f * static_cast<float>(deltaTime);
     }
+    if (turning_right) {
+        rotation[1] -= 50.0f * static_cast<float>(deltaTime);
+    }
+    
+    double theta = (rotation[1] - 90) * 3.1415926535897932384626433832795 / 180;
+    float x = travel_speed * static_cast<float>(deltaTime) * sin(theta);
+    float y = travel_speed * static_cast<float>(deltaTime) * cos(theta);
+    if (moving_forward) {
+        pos[0] += x;
+        pos[2] += y;
+        wheele_rot += 10.0f * travel_speed * static_cast<float>(deltaTime);
+    } else if (moving_backwards) {
+        pos[0] -= x;
+        pos[2] -= y;
+        wheele_rot -= 10.0f * travel_speed * static_cast<float>(deltaTime);
+    }
+    
+    std::cout << rotation[0] << " " << rotation[1] << " " << rotation[2] << "\n";
 }
+
+void Car::HandleSpecialKey(int key, int state, int x, int y) {
+//    int LEFT_ARROW = 100;
+//    int RIGHT_ARROW = 102;
+//    int UP_ARROW = 101;
+//    int DOWN_ARROW = 103;
+    
+    if (state == 1) { // if key pressed down
+        switch(key){ // special key
+            case 100:
+                turning_left = true;
+                break;
+            case 102:
+                turning_right = true;
+                break;
+            case 101:
+                moving_forward = true;
+                break;
+            case 103:
+                moving_backwards = true;
+                break;
+        }
+    } else if (state == 0) { // if key pressed up
+        switch(key){ // special key
+            case 100:
+                turning_left = false;
+                break;
+            case 102:
+                turning_right = false;
+                break;
+            case 101:
+                moving_forward = false;
+                break;
+            case 103:
+                moving_backwards = false;
+                break;
+        }
+    }
+};
