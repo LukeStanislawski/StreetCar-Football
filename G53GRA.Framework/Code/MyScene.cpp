@@ -30,9 +30,6 @@ void MyScene::Initialise()
     Car *car_obj = new Car();
     AddObjectToScene(car_obj);
     
-    Triangle *t = new Triangle();
-    AddObjectToScene(t);
-    
     
 //    checkGLError();                 // Check any OpenGL errors in initialisation
 //    glutReshapeFunc(reshape);
@@ -47,38 +44,38 @@ void MyScene::Projection()
 }
 
 
-void draw() {
-    glClearColor(1.f, 1.f, 1.f, 1.f);                   // set background colour
-    glClear(GL_COLOR_BUFFER_BIT); // clear buffers
-    glMatrixMode(GL_MODELVIEW);                         // set for model and viewing operations
-    glLoadIdentity();                                   // reset drawing
-//    glutKeyboardFunc(moveCamera);
+//void draw() {
+//    glClearColor(1.f, 1.f, 1.f, 1.f);                   // set background colour
+//    glClear(GL_COLOR_BUFFER_BIT); // clear buffers
+//    glMatrixMode(GL_MODELVIEW);                         // set for model and viewing operations
+//    glLoadIdentity();                                   // reset drawing
+////    glutKeyboardFunc(moveCamera);
+//
+////    glEnable(GL_CULL_FACE);                             // Enable face-culling
+////    glFrontFace(GL_CCW);
+//
+//    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
+//
+////    setCamera(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
+//
+//    glTranslatef(0.f, 0.f, -100.f);                     // move drawing further back in the scene
+//    glColor3f(0.f, 0.f, 0.f);                           // set draw colour to black
+//
+////    glutWireCube(10.f);                                 // draw outlined cube
+//    drawPerspective();
+//
+////    Car car_obj;
+////    AddObjectToScene(car_obj);
+//
+//    checkGLError();
+//    glutSwapBuffers();                                  // execute all commands, swap buffers
+//    glFlush();
+////    std::cout << "draw " << iter++ << std::endl;
+//}
 
-//    glEnable(GL_CULL_FACE);                             // Enable face-culling
-//    glFrontFace(GL_CCW);
 
-    glClear(GL_COLOR_BUFFER_BIT | GL_DEPTH_BUFFER_BIT);
-
-//    setCamera(eyeX, eyeY, eyeZ, lookAtX, lookAtY, lookAtZ, upX, upY, upZ);
-
-    glTranslatef(0.f, 0.f, -100.f);                     // move drawing further back in the scene
-    glColor3f(0.f, 0.f, 0.f);                           // set draw colour to black
-
-//    glutWireCube(10.f);                                 // draw outlined cube
-    drawPerspective();
-
-//    Car car_obj;
-//    AddObjectToScene(car_obj);
-
-    checkGLError();
-    glutSwapBuffers();                                  // execute all commands, swap buffers
-    glFlush();
-//    std::cout << "draw " << iter++ << std::endl;
-}
-
-
-void setup()
-{
+//void setup()
+//{
 //    glutInitDisplayMode(GLUT_DEPTH | GLUT_DOUBLE);  // enable 3D rendering and double buffering
 //    glutInitDisplayMode(GLUT_SINGLE | GLUT_RGB | GLUT_DEPTH);
 //    glutInitWindowSize(width, height);              // set window size
@@ -87,7 +84,7 @@ void setup()
 //    setGlobalLight();
 //    glEnable(GL_DEPTH_TEST);
 //    glDepthFunc(GL_LESS);
-}
+//}
 
 void setGlobalLight() {
     // Set lighting effect colours and positional parameter
@@ -106,10 +103,10 @@ void setGlobalLight() {
 }
 
 
-void timer(int value) {
-    glutPostRedisplay();
-    glutTimerFunc(refreshmil, timer, 0);
-}
+//void timer(int value) {
+//    glutPostRedisplay();
+//    glutTimerFunc(refreshmil, timer, 0);
+//}
 
 void reshape(int _width, int _height) {
     // update global dimension variables
