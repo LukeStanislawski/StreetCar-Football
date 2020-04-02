@@ -9,6 +9,7 @@
 #include "DisplayableObject.h"
 #include "Triangle.h"
 #include "Terrain.h"
+#include "Tree.h"
 
 
 int width  = 600;                                   // initialise global window variables
@@ -33,6 +34,10 @@ void MyScene::Initialise()
     
     Terrain *t = new Terrain();
     AddObjectToScene(t);
+    
+    Tree *tree = new Tree();
+    tree->position(300,-45,0);
+    AddObjectToScene(tree);
     
     
 //    checkGLError();                 // Check any OpenGL errors in initialisation
