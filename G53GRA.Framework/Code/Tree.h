@@ -27,7 +27,9 @@ public:
     void Display();
 
 private:
-    void branch(int depth);
+    int n_branches = 4;
+    void branches(int depth);
+    void branch(int edges, float length);
 
 };
 

@@ -209,12 +209,15 @@ void Car::car_wheel() {
     
     
     glPushMatrix();
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
+    
     car_colours(4);
     int spokes = 4;
     float depth_inc = 0.02;
     for (int i=0; i < spokes; i++) {
         float depth = 0.1 + (i * depth_inc);
         glRotatef(180.0 / spokes, 0, 0, 1);
+        glNormal3f(0.f, 0.f, 1.f);
         glBegin(GL_POLYGON);
         glVertex3d(1, 10, depth);
         glVertex3d(-1, 10, depth);
@@ -222,6 +225,8 @@ void Car::car_wheel() {
         glVertex3d(1, -10, depth);
         glEnd();
     }
+    
+    glPopAttrib();
     glPopMatrix();
     
     glPopMatrix();

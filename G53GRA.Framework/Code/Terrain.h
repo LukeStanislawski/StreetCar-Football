@@ -21,7 +21,10 @@ public:
     void Display();
 
 private:
-
+    int sections = 20;
+    float size = 1000;
+    
+    void draw_section(float x, float y, float z);
 };
 
 #endif /* Terrain_hpp */

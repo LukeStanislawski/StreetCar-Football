@@ -56,6 +56,9 @@ void Scene::Draw()
 	glLoadIdentity();
 	// Setup viewing properties
 	camera.SetupCamera();
+    
+    glEnable(GL_NORMALIZE);
+    
 	// Display all objects in the Scene
 	for (DisplayableObject* obj : objects)
 		obj->Display();

@@ -39,6 +39,7 @@ void MyScene::Initialise()
     tree->position(300,-45,0);
     AddObjectToScene(tree);
     
+    setGlobalLight();
     
 //    checkGLError();                 // Check any OpenGL errors in initialisation
 //    glutReshapeFunc(reshape);
@@ -102,7 +103,7 @@ void MyScene::Projection()
 
 void setGlobalLight() {
     // Set lighting effect colours and positional parameter
-    float ambient[]  = { .6f, .6f, .6f, 1.f };      // ambient light (20% white)
+    float ambient[]  = { .2f, .2f, .2f, 1.f };      // ambient light (20% white)
     float diffuse[]  = { .5f, .5f, .5f, 1.f };      // diffuse light (50% white)
     float specular[] = { 1.f, 1.f, 1.f, 1.f };      // specular light (100% white)
     float position[] = { 1.f, .5f, 1.f, 0.f };      // directional light (w = 0)
@@ -114,6 +115,26 @@ void setGlobalLight() {
     // Enable this lighting effects
     glEnable(GL_LIGHTING);  // enable scene lighting (required to enable a light source)
     glEnable(GL_LIGHT0);    // enable light source with attached parameters (GL_LIGHT0)
+}
+
+
+void setSpotLight() {
+    // Set lighting effect colours and positional parameter
+    float ambient[]  = { .2f, .2f, .2f, 1.f };      // ambient light (20% white)
+    float diffuse[]  = { .5f, .5f, .5f, 1.f };      // diffuse light (50% white)
+    float specular[] = { 1.f, 1.f, 1.f, 1.f };      // specular light (100% white)
+    float position[] = { 1.f, .5f, 1.f, 0.f };      // directional light (w = 0)
+    // Attach properties to single light source (GL_LIGHT0)
+    glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);      // set ambient parameter of light source
+    glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);      // set diffuse parameter of light source
+    glLightfv(GL_LIGHT1, GL_SPECULAR, specular);    // set specular parameter of light source
+    glLightfv(GL_LIGHT1, GL_POSITION, position);    // set direction vector of light source
+    glEnable(GL_LIGHT1);    // enable light source with attached parameters (GL_LIGHT0)
+    
+    float dir[] = {1.f,1.f,0.5f};
+    glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, dir);
+    glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 0.f);
+    glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 22.5f);
 }
 
 
