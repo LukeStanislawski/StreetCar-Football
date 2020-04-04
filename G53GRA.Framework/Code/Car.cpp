@@ -58,6 +58,9 @@ void Car::Display() {
     // in the scene are not effected by the triangles transformations so that
     // other objects
     glPopMatrix();
+    
+    glLightfv(GL_LIGHT1, GL_POSITION, pos);
+    glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, rotation);
 }
 
 void Car::car_headlights() {
@@ -205,6 +208,7 @@ void Car::car_wheel() {
     
     car_colours(1);
     glScalef(0.7, 0.7, 0.7);
+    glNormal3f(0.f, 0.f, 1.f);
     circle(20);
     
     
@@ -346,9 +350,7 @@ void Car::HandleKey(unsigned char key, int state, int x, int y) {
 }
 
 
-/// update the Z rotation variable with change in time
-void Car::Update(const double& deltaTime)
-{
+void Car::Update(const double& deltaTime) {
     if (turning_left) {
         rotation[1] += 50.0f * static_cast<float>(deltaTime);
     }

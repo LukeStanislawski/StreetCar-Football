@@ -10,6 +10,7 @@
 #include "Triangle.h"
 #include "Terrain.h"
 #include "Tree.h"
+#include "Environment.h"
 
 
 int width  = 600;                                   // initialise global window variables
@@ -26,7 +27,7 @@ MyScene::MyScene(int argc, char** argv, const char *title, const int& windowWidt
 
 void MyScene::Initialise()
 {
-    glClearColor(1.f, 1.f, 1.f, 1.f);
+//    glClearColor(0.678, 0.921, 1.0, 1.f);
     
     car = new Car();
     car->position(0, -45, 0);
@@ -39,7 +40,10 @@ void MyScene::Initialise()
     tree->position(300,-45,0);
     AddObjectToScene(tree);
     
-    setGlobalLight();
+    Environment *env = new Environment();
+    AddObjectToScene(env);
+    
+//    setGlobalLight();
     
 //    checkGLError();                 // Check any OpenGL errors in initialisation
 //    glutReshapeFunc(reshape);
@@ -52,10 +56,15 @@ void MyScene::Projection()
 	GLdouble aspect = static_cast<GLdouble>(windowWidth) / static_cast<GLdouble>(windowHeight);
 	gluPerspective(60.0, aspect, 1.0, 1000.0);
     
+//    Update coordinates of car in camera object
     Camera *c = GetCamera();
     float *car_pos = car->position();
     float *car_ornt = car->orientation();
     c->update_tracker(car_pos, car_ornt);
+    
+    
+// Update light
+    
 }
 
 
@@ -120,18 +129,18 @@ void setGlobalLight() {
 
 void setSpotLight() {
     // Set lighting effect colours and positional parameter
-    float ambient[]  = { .2f, .2f, .2f, 1.f };      // ambient light (20% white)
-    float diffuse[]  = { .5f, .5f, .5f, 1.f };      // diffuse light (50% white)
+//    float ambient[]  = { 1.f, 1.f, 1.f, 1.f };      // ambient light (20% white)
+    float diffuse[]  = { 1.f, 1.f, 1.f, 1.f };      // diffuse light (50% white)
     float specular[] = { 1.f, 1.f, 1.f, 1.f };      // specular light (100% white)
-    float position[] = { 1.f, .5f, 1.f, 0.f };      // directional light (w = 0)
+    float position[] = { 1.f, 1.f, 1.f, 0.f };      // directional light (w = 0)
     // Attach properties to single light source (GL_LIGHT0)
-    glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);      // set ambient parameter of light source
+//    glLightfv(GL_LIGHT1, GL_AMBIENT, ambient);      // set ambient parameter of light source
     glLightfv(GL_LIGHT1, GL_DIFFUSE, diffuse);      // set diffuse parameter of light source
     glLightfv(GL_LIGHT1, GL_SPECULAR, specular);    // set specular parameter of light source
     glLightfv(GL_LIGHT1, GL_POSITION, position);    // set direction vector of light source
     glEnable(GL_LIGHT1);    // enable light source with attached parameters (GL_LIGHT0)
     
-    float dir[] = {1.f,1.f,0.5f};
+    float dir[] = {1.f,0.f,1.f};
     glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, dir);
     glLightf(GL_LIGHT1, GL_SPOT_EXPONENT, 0.f);
     glLightf(GL_LIGHT1, GL_SPOT_CUTOFF, 22.5f);
