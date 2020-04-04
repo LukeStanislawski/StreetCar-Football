@@ -11,6 +11,7 @@
 #include "Terrain.h"
 #include "Tree.h"
 #include "Environment.h"
+#include "SkyBox.h"
 
 
 int width  = 600;                                   // initialise global window variables
@@ -33,15 +34,18 @@ void MyScene::Initialise()
     car->position(0, -45, 0);
     AddObjectToScene(car);
     
+    skybox = new SkyBox();
+    AddObjectToScene(skybox);
+    
+    env = new Environment();
+    AddObjectToScene(env);
+    
     Terrain *t = new Terrain();
     AddObjectToScene(t);
     
     Tree *tree = new Tree();
     tree->position(300,-45,0);
     AddObjectToScene(tree);
-    
-    Environment *env = new Environment();
-    AddObjectToScene(env);
     
 //    setGlobalLight();
     
@@ -54,13 +58,20 @@ void MyScene::Initialise()
 void MyScene::Projection()
 {
 	GLdouble aspect = static_cast<GLdouble>(windowWidth) / static_cast<GLdouble>(windowHeight);
-	gluPerspective(60.0, aspect, 1.0, 1000.0);
+	gluPerspective(60.0, aspect, 1.0, 2500.0);
     
-//    Update coordinates of car in camera object
+//  Get Camera
     Camera *c = GetCamera();
+
+//    Update coordinates of car in camera object
     float *car_pos = car->position();
     float *car_ornt = car->orientation();
     c->update_tracker(car_pos, car_ornt);
+    
+    float cpx, cpy, cpz;
+    c->GetEyePosition(cpx, cpy, cpz);
+    skybox->position(cpx, cpy, cpz);
+    env->position(cpx, cpy, cpz);
     
     
 // Update light

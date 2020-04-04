@@ -15,6 +15,8 @@
 		192BE3C61E4CBD8B0040131F /* Texture.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 192BE3C21E4CBD8B0040131F /* Texture.cpp */; };
 		192BE3CA1E4CBD960040131F /* main.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 192BE3C71E4CBD960040131F /* main.cpp */; };
 		192BE3CB1E4CBD960040131F /* MyScene.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 192BE3C81E4CBD960040131F /* MyScene.cpp */; };
+		2D7F7AEC24388DCA00F811C8 /* Environment.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D7F7AEB24388DCA00F811C8 /* Environment.cpp */; };
+		2D7F7AEF24389FC400F811C8 /* SkyBox.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2D7F7AED24389FC400F811C8 /* SkyBox.cpp */; };
 		2DCD99962435E1220086BE29 /* Tree.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DCD99952435E1220086BE29 /* Tree.cpp */; };
 		2DDD513E2430B2ED002A973A /* Car.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD513D2430B2ED002A973A /* Car.cpp */; };
 		2DDD51412430B343002A973A /* Shapes.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 2DDD513F2430B343002A973A /* Shapes.cpp */; };
@@ -54,6 +56,10 @@
 		192BE3C71E4CBD960040131F /* main.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = main.cpp; path = Code/main.cpp; sourceTree = SOURCE_ROOT; };
 		192BE3C81E4CBD960040131F /* MyScene.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = MyScene.cpp; path = Code/MyScene.cpp; sourceTree = SOURCE_ROOT; };
 		192BE3C91E4CBD960040131F /* MyScene.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MyScene.h; path = Code/MyScene.h; sourceTree = SOURCE_ROOT; };
+		2D7F7AEA24388DC900F811C8 /* Environment.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Environment.h; path = Code/Environment.h; sourceTree = SOURCE_ROOT; };
+		2D7F7AEB24388DCA00F811C8 /* Environment.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Environment.cpp; path = Code/Environment.cpp; sourceTree = SOURCE_ROOT; };
+		2D7F7AED24389FC400F811C8 /* SkyBox.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = SkyBox.cpp; path = Code/SkyBox.cpp; sourceTree = SOURCE_ROOT; };
+		2D7F7AEE24389FC400F811C8 /* SkyBox.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SkyBox.h; path = Code/SkyBox.h; sourceTree = SOURCE_ROOT; };
 		2DCD99942435E1220086BE29 /* Tree.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Tree.h; path = Code/Tree.h; sourceTree = SOURCE_ROOT; };
 		2DCD99952435E1220086BE29 /* Tree.cpp */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.cpp; name = Tree.cpp; path = Code/Tree.cpp; sourceTree = SOURCE_ROOT; };
 		2DDD513C2430B2ED002A973A /* Car.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Car.h; path = Code/Car.h; sourceTree = SOURCE_ROOT; };
@@ -127,6 +133,10 @@
 				2DDD513D2430B2ED002A973A /* Car.cpp */,
 				2DCD99942435E1220086BE29 /* Tree.h */,
 				2DCD99952435E1220086BE29 /* Tree.cpp */,
+				2D7F7AEA24388DC900F811C8 /* Environment.h */,
+				2D7F7AEB24388DCA00F811C8 /* Environment.cpp */,
+				2D7F7AEE24389FC400F811C8 /* SkyBox.h */,
+				2D7F7AED24389FC400F811C8 /* SkyBox.cpp */,
 				2DDD51422430B38B002A973A /* SubDivTriangle.cpp */,
 				2DDD51432430B38B002A973A /* SubDivTriangle.h */,
 				2DDD513F2430B343002A973A /* Shapes.cpp */,
@@ -253,6 +263,8 @@
 				2DDD51472430C36E002A973A /* Triangle.cpp in Sources */,
 				2DDD514A2430FEE6002A973A /* Terrain.cpp in Sources */,
 				192BE3C61E4CBD8B0040131F /* Texture.cpp in Sources */,
+				2D7F7AEC24388DCA00F811C8 /* Environment.cpp in Sources */,
+				2D7F7AEF24389FC400F811C8 /* SkyBox.cpp in Sources */,
 				192BE3C51E4CBD8B0040131F /* Camera.cpp in Sources */,
 				192BE3CA1E4CBD960040131F /* main.cpp in Sources */,
 				192BE3CB1E4CBD960040131F /* MyScene.cpp in Sources */,

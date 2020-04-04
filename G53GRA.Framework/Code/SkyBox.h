@@ -6,8 +6,8 @@
 //  Copyright © 2020 Luke Stanislawski. All rights reserved.
 //
 
-#ifndef ___Environment__
-#define ___Environment__
+#ifndef ___SkyBox__
+#define ___SkyBox__
 #ifdef __APPLE__ // if OS X
 #include <glut/glut.h> // include freeglut libraries
 #else // if Windows
@@ -20,28 +20,25 @@
 #include "Input.h"
 
 
-class Environment:
-    public DisplayableObject,
-    public Input,
-    public Animation
+class SkyBox:
+    public DisplayableObject
+//    public Input,
+//    public Animation
 {
 public:
-    Environment();
-    ~Environment() {};
+    SkyBox();
+    ~SkyBox() {};
     void Display();
-
 private:
-    float prog = 0.0;
-    float cycle_speed = 0.1;
-    float sun_dist = 900;
-    float sun_radius = 50;
+    double radius = 1900;
+    double height = 1200;
+    float sHeight = -200;
+    int faces = 40;
+    int n_imgs = 1;
     
 //    void HandleKey(unsigned char key, int state, int x, int y);
 //    void HandleSpecialKey(int key, int state, int x, int y);
-    void Update(const double& deltaTime);
-    float mp(float a, float b, float prog);
-    void sun();
-    void sky();
+//    void Update(const double& deltaTime);
 };
 
 #endif

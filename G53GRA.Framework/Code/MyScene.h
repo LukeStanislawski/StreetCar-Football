@@ -2,6 +2,8 @@
 
 #include "../Framework/Engine/Scene.h"
 #include "Car.h"
+#include "SkyBox.h"
+#include "Environment.h"
 
 class MyScene :
 	public Scene
@@ -12,6 +14,8 @@ public:
 
 private:
     Car *car;
+    SkyBox *skybox;
+    Environment * env;
 	void Initialise();
 	void Projection();
 
