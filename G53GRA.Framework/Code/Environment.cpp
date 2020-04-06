@@ -43,6 +43,7 @@ void Environment::sun() {
     glPushMatrix();
     glPushAttrib(GL_ALL_ATTRIB_BITS);
     glDisable(GL_CULL_FACE);
+    glDisable(GL_LIGHTING);
     
     glTranslatef(pos[0], pos[1], pos[2]);
     
@@ -54,6 +55,7 @@ void Environment::sun() {
     glScalef(5,5,5);
     circle(20);
     
+    glEnable(GL_LIGHTING);
     glPopAttrib();
     
     sun_lighting();
@@ -93,6 +95,7 @@ void Environment::sun_lighting() {
         std::max(max_spec[1]*mult, min_spec[1]),
         std::max(max_spec[2]*mult, min_spec[2]),
         1.0f};
+    
     glLightfv(GL_LIGHT0, GL_AMBIENT, ambience);
     glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
     glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
