@@ -64,27 +64,38 @@ void Environment::sun() {
 
 
 void Environment::sun_lighting() {
-    std::cout << prog << "\n";
+//    std::cout << prog << "\n";
     GLfloat position[] = {0, 0, 0, 1.0f};
     glLightfv(GL_LIGHT0, GL_POSITION, position);
     
-    if (prog < 0.25 || prog > 0.75) {
-        GLfloat ambience[] = {0.02f, 0.02f, 0.02f, 1.0f};
-        GLfloat diffuse[] = {0.08f, 0.08f, 0.08f, 1.0f};
-        GLfloat specular[] = {0.10f, 0.10f, 0.10f, 1.0f};
-        glLightfv(GL_LIGHT0, GL_AMBIENT, ambience);
-        glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
-        glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-    } else {
-        float range = (prog - 0.25) * 2;
-        float mult = sin(M_PI * range);
-        GLfloat ambience[] = {0.2f*mult, 0.2f*mult, 0.2f*mult, 1.0f};
-        GLfloat diffuse[] = {0.8f*mult, 0.8f*mult, 0.8f*mult, 1.0f};
-        GLfloat specular[] = {1.0f*mult, 1.0f*mult, 1.0f*mult, 1.0f};
-        glLightfv(GL_LIGHT0, GL_AMBIENT, ambience);
-        glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
-        glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
-    }
+    float max_amb[4] = {0.2f, 0.2f, 0.2f, 1.0f};
+    float max_dif[4] = {0.8f, 0.8f, 0.8f, 1.0f};
+    float max_spec[4] = {1.0f, 1.0f, 1.0f, 1.0f};
+    
+    float min_amb[4] = {0.02f, 0.02f, 0.02f, 1.0f};
+    float min_dif[4] = {0.0f, 0.0f, 0.0f, 1.0f};
+    float min_spec[4] = {0.f, 0.f, 0.f, 1.0f};
+    
+    float mult = sin(2 * M_PI * prog - (2*M_PI/3));
+    
+    GLfloat ambience[] = {
+        std::max(max_amb[0]*mult, min_amb[0]),
+        std::max(max_amb[1]*mult, min_amb[1]),
+        std::max(max_amb[2]*mult, min_amb[2]),
+        1.0f};
+    GLfloat diffuse[] = {
+        std::max(max_dif[0]*mult, min_dif[0]),
+        std::max(max_dif[1]*mult, min_dif[1]),
+        std::max(max_dif[2]*mult, min_dif[2]),
+        1.0f};
+    GLfloat specular[] = {
+        std::max(max_spec[0]*mult, min_spec[0]),
+        std::max(max_spec[1]*mult, min_spec[1]),
+        std::max(max_spec[2]*mult, min_spec[2]),
+        1.0f};
+    glLightfv(GL_LIGHT0, GL_AMBIENT, ambience);
+    glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+    glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
 }
 
 void Environment::sky() {
