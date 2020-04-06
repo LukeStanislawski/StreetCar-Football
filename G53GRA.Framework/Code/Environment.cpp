@@ -54,9 +54,37 @@ void Environment::sun() {
     glScalef(5,5,5);
     circle(20);
     
+    glPopAttrib();
+    
+    sun_lighting();
+    
     glEnable(GL_CULL_FACE);
     glPopMatrix();
-    glPopAttrib();
+}
+
+
+void Environment::sun_lighting() {
+    std::cout << prog << "\n";
+    GLfloat position[] = {0, 0, 0, 1.0f};
+    glLightfv(GL_LIGHT0, GL_POSITION, position);
+    
+    if (prog < 0.25 || prog > 0.75) {
+        GLfloat ambience[] = {0.02f, 0.02f, 0.02f, 1.0f};
+        GLfloat diffuse[] = {0.08f, 0.08f, 0.08f, 1.0f};
+        GLfloat specular[] = {0.10f, 0.10f, 0.10f, 1.0f};
+        glLightfv(GL_LIGHT0, GL_AMBIENT, ambience);
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+        glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+    } else {
+        float range = (prog - 0.25) * 2;
+        float mult = sin(M_PI * range);
+        GLfloat ambience[] = {0.2f*mult, 0.2f*mult, 0.2f*mult, 1.0f};
+        GLfloat diffuse[] = {0.8f*mult, 0.8f*mult, 0.8f*mult, 1.0f};
+        GLfloat specular[] = {1.0f*mult, 1.0f*mult, 1.0f*mult, 1.0f};
+        glLightfv(GL_LIGHT0, GL_AMBIENT, ambience);
+        glLightfv(GL_LIGHT0, GL_DIFFUSE, diffuse);
+        glLightfv(GL_LIGHT0, GL_SPECULAR, specular);
+    }
 }
 
 void Environment::sky() {

@@ -63,11 +63,11 @@ void Scene::Draw()
 	for (DisplayableObject* obj : objects)
 		obj->Display();
     
-//    glPushMatrix();
-//    glTranslatef(0,0,400);
-//    glScalef(5, 5, 5);
-//    glutSolidSphere (1.0, 20, 16);
-//    glPopMatrix();
+    glPushMatrix();
+    glTranslatef(0,0,400);
+    glScalef(5, 5, 5);
+    glutSolidSphere (1.0, 20, 16);
+    glPopMatrix();
 
 	// Zealous reset of MODELVIEW matrix
 	glMatrixMode(GL_MODELVIEW);

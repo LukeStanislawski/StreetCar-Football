@@ -42,6 +42,7 @@ private:
     float mp(float a, float b, float prog);
     void sun();
     void sky();
+    void sun_lighting();
 };
 
 #endif
