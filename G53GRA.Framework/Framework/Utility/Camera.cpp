@@ -38,7 +38,10 @@ void Camera::Reset(){
 
 void Camera::SetViewport()
 {
-	glViewport(static_cast<GLint>(0), static_cast<GLint>(0), static_cast<GLsizei>(Scene::GetWindowWidth()), static_cast<GLsizei>(Scene::GetWindowHeight()));
+	glViewport(static_cast<GLint>(0), static_cast<GLint>(0), 2*static_cast<GLsizei>(Scene::GetWindowWidth()), 2*static_cast<GLsizei>(Scene::GetWindowHeight()));
+    
+//    Use this line below if program is rendering strangely. The window renders in half size on my mac using xcode but Vaughan and I suspect this is a compiler issue
+//    glViewport(static_cast<GLint>(0), static_cast<GLint>(0), static_cast<GLsizei>(Scene::GetWindowWidth()), static_cast<GLsizei>(Scene::GetWindowHeight()));
 }
 
 void Camera::SetupCamera()
