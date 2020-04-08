@@ -54,7 +54,7 @@ void Camera::SetupCamera()
 void Camera::Update(const double& deltaTime)
 {
     if (camera_view == 0) {
-        float speed = 1.0f;
+        float speed = 4.0f;
 
         if (aKey)
             sub(eyePosition, right, speed);

@@ -52,16 +52,19 @@ void Car::Display() {
     
     glTranslatef(0,15,0);
     glRotatef(-90,0,1,0);
-
+    
     car_body();
     car_windscreen();
     car_wheels();
     car_roofbars();
     car_bumper();
     car_grill();
+    
+    glPopAttrib();
+    
     car_headlights();
 
-    glPopAttrib();
+    
     glPopMatrix();
 
     // re-enable face culling for other objects in the scene
@@ -72,8 +75,8 @@ void Car::Display() {
     // other objects
     glPopMatrix();
     
-    glLightfv(GL_LIGHT1, GL_POSITION, pos);
-    glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, rotation);
+//    glLightfv(GL_LIGHT1, GL_POSITION, pos);
+//    glLightfv(GL_LIGHT1, GL_SPOT_DIRECTION, rotation);
 }
 
 void Car::car_headlights() {
@@ -83,25 +86,59 @@ void Car::car_headlights() {
     glTranslatef(10,4,-26);
     glPushMatrix();
     glScalef(0.2,0.2,0.2);
-    car_headlight();
+    car_headlight(GL_LIGHT1);
     glPopMatrix();
     
     glTranslatef(-20, 0, 0);
     glScalef(0.2,0.2,0.2);
-    car_headlight();
+    car_headlight(GL_LIGHT2);
     
     glPopMatrix();
 }
 
-void Car::car_headlight() {
+void Car::car_headlight(GLenum light_label) {
     glPushMatrix();
     car_colours(3);
     ring(20, 0.1);
     car_colours(5);
     glScalef(0.9,0.9,0.9);
+    
+    glPushAttrib(GL_ALL_ATTRIB_BITS);
+    float emit[] = {1.f,1.f,1.f,1.f};
+    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, emit);
     circle(20);
+    glPopAttrib();
+    
+    car_headlight_light(light_label);
+    
     glPopMatrix();
 }
+
+
+void Car::car_headlight_light(GLenum light_label) {
+    glPushMatrix();
+    glTranslatef(0, 0, 100);
+    
+    GLfloat position[] = {0, 0, 0, 1.0f};
+    glLightfv(light_label, GL_POSITION, position);
+    
+    float ambient[]  = { 0.f, 0.f, 0.f, 1.f };      // ambient light (20% white)
+    float diffuse[]  = { 0.f, 0.f, 0.f, 0.f };      // diffuse light (50% white)
+    float specular[] = { 1.f, 1.f, 1.f, 0.f };      // specular light (100% white)
+    float direction[] = {0, 0, -1};
+    
+    glLightfv(light_label, GL_AMBIENT, ambient);
+    glLightfv(light_label, GL_DIFFUSE, diffuse);
+    glLightfv(light_label, GL_SPECULAR, specular);
+    glLightfv(light_label, GL_SPOT_DIRECTION, direction);
+    glLightf(light_label, GL_SPOT_EXPONENT, 0.f);
+    glLightf(light_label, GL_SPOT_CUTOFF, 22.5f);
+    glEnable(light_label);
+    glEnable(GL_NORMALIZE);
+    
+    glPopMatrix();
+}
+
 
 void Car::car_grill() {
     glPushMatrix();

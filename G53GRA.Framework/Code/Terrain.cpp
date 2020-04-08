@@ -21,8 +21,13 @@ void Terrain::Display() {
     glEnable(GL_TEXTURE_2D);
     glBindTexture(GL_TEXTURE_2D, tex);
     
-    float emit[] = {1.f,1.f,1.f,1.f};
-    glMaterialfv(GL_FRONT_AND_BACK, GL_EMISSION, emit);
+    float mat_colour[] = { 0.109, 0.690, 0.133, 1.f };         // green
+    float mat_ambient[] = { 0.109, 0.690, 0.133, 1.f };        // green
+    float mat_spec[] = { 0.545, 0.976, 0.564, 1.f };           // lighter green
+    
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambient); // set colour for ambient reflectance
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_colour);  // set colour for diffuse reflectance
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_spec);   // set colour for specular reflectance
     
     float y = -50;
     float sl = size / sections;

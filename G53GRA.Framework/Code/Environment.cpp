@@ -28,6 +28,9 @@ void Environment::Update(const double& deltaTime) {
     while (prog >= 1.0) {
         prog = prog - 1.0;
     }
+    
+//    TEMP
+//    prog = 0;
 }
 
 float Environment::mp(float a, float b, float mult) {
@@ -66,7 +69,7 @@ void Environment::sun() {
 
 
 void Environment::sun_lighting() {
-//    std::cout << prog << "\n";
+    std::cout << prog << "\n";
     GLfloat position[] = {0, 0, 0, 1.0f};
     glLightfv(GL_LIGHT0, GL_POSITION, position);
     

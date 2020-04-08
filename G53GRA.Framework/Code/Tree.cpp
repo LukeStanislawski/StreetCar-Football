@@ -37,6 +37,18 @@ void Tree::Display() {
     glPushMatrix();
     glPushAttrib(GL_ALL_ATTRIB_BITS);
     
+    
+    float mat_colour[] = { 0.545, 0.270, 0.074, 1.f };      // brown
+    float mat_ambient[] = { 0.545, 0.270, 0.074, 1.f };     // brown
+    float mat_spec[] = { 0.545, 0.270, 0.074, 1.f };        // brown
+    
+    glEnable(GL_LIGHTING);
+    glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, mat_ambient); // set colour for ambient reflectance
+    glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, mat_colour);  // set colour for diffuse reflectance
+    glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, mat_spec);   // set colour for specular reflectance
+    
+    
+    
 //    glTranslatef(0,15,0);
     glRotatef(-90,1,0,0);
 

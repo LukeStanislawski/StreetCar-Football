@@ -47,8 +47,9 @@ private:
     void car_bumper();
     void car_grill();
     void car_grill_bar();
-    void car_headlight();
     void car_headlights();
+    void car_headlight(GLenum light_label);
+    void car_headlight_light(GLenum light_label);
     
     void car_colours(int c);
     

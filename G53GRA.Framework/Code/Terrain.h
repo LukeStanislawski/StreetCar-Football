@@ -21,7 +21,7 @@ public:
     void Display();
 
 private:
-    int sections = 60;
+    int sections = 120;
     float size = 5000;
     
     void draw_section(float x, float y, float z);
