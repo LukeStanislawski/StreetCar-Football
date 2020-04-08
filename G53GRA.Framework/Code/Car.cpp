@@ -116,6 +116,7 @@ void Car::car_headlight(GLenum light_label) {
 
 
 void Car::car_headlight_light(GLenum light_label) {
+    std::cout << headlights_on << "\n";
     glPushMatrix();
     glTranslatef(0, 0, 100);
     
@@ -133,7 +134,12 @@ void Car::car_headlight_light(GLenum light_label) {
     glLightfv(light_label, GL_SPOT_DIRECTION, direction);
     glLightf(light_label, GL_SPOT_EXPONENT, 0.f);
     glLightf(light_label, GL_SPOT_CUTOFF, 22.5f);
-    glEnable(light_label);
+    
+    if (headlights_on) {
+        glEnable(light_label);
+    } else {
+        glDisable(light_label);
+    }
     glEnable(GL_NORMALIZE);
     
     glPopMatrix();
@@ -393,10 +399,15 @@ void Car::car_colours(int c) {
 }
 
 
+void Car::toggle_headlights() {
+    headlights_on = !(headlights_on);
+}
+
+
 void Car::HandleKey(unsigned char key, int state, int x, int y) {
-//    if (state == 1 && key == 'j') {
-//        orientation(0, 153, 0);
-//    }
+    if (state == 1 && (key == 'l' || key == 'L')) {
+        toggle_headlights();
+    }
 }
 
 
@@ -442,6 +453,7 @@ void Car::HandleSpecialKey(int key, int state, int x, int y) {
             case 103:
                 moving_backwards = true;
                 break;
+            break;
         }
     } else if (state == 0) { // if key pressed up
         switch(key){ // special key

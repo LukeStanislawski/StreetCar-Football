@@ -37,6 +37,7 @@ private:
     bool moving_forward = false;
     bool moving_backwards = false;
     float travel_speed = 50.0;
+    bool headlights_on = false;
     
     void car_windscreen();
     void car_body();
@@ -50,6 +51,7 @@ private:
     void car_headlights();
     void car_headlight(GLenum light_label);
     void car_headlight_light(GLenum light_label);
+    void toggle_headlights();
     
     void car_colours(int c);
     

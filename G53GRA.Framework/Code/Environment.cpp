@@ -69,7 +69,6 @@ void Environment::sun() {
 
 
 void Environment::sun_lighting() {
-    std::cout << prog << "\n";
     GLfloat position[] = {0, 0, 0, 1.0f};
     glLightfv(GL_LIGHT0, GL_POSITION, position);
     
